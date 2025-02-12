@@ -113,7 +113,7 @@ h6 a {
 }
 
 h1 {
-  font-size: 72px;
+  font-size: 60px;
 }
 
 h2 {
@@ -2228,7 +2228,7 @@ body.visible-sidebar {
 .banner-two .slide-item h1 {
   position: relative;
   font-weight: 700;
-  font-size: 140px;
+  font-size: 100px;
   color: #10221B;
   text-transform: capitalize;
   line-height: 1.20em;
