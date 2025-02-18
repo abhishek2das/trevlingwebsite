@@ -143,7 +143,7 @@
                             </div>
                         </div>
                         <!-- End Header Upper -->
-                        <div class="search-box">
+                        <!-- <div class="search-box">
                             <div class="outer-container">
                                 <div class="inner-box">
                                     <div class="form-box">
@@ -157,7 +157,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -204,12 +204,7 @@
                 </div>
                 <!-- /.Side-menu -->
 
-                <div class="links-box clearfix">
-                    <div class="clearfix">
-                        <div class="link"><a href="login.html" class="theme-btn btn-style-one"><span>Log In<i class="icon far fa-angle-right"></i></span></a></div>
-                        <div class="link"><a href="signup.html" class="theme-btn btn-style-two"><span>Sign Up<i class="icon far fa-angle-right"></i></span></a></div>
-                    </div>
-                </div>
+
 
             </div>
             <!-- / Hidden Bar Wrapper -->
@@ -285,41 +280,42 @@
                     <div class="text">Contact us and get strapped in for a better adventure experience in your life-time. Just look for opportunity to be with nature. </div>
                 </div>
                 <div class="form-box site-form">
-                    <div class="contact-form">
-                        <form method="post" action="https://traveljunction.org/mail.php">
+                    <div class="booking-form">
+                        <form method="post" id="contact-form-main">
                             <div class="row clearfix">
                                 <div class="form-group col-lg-6 col-md-6 col-sm-12">
                                     <div class="f-label">Your Name <i>*</i></div>
                                     <div class="field-inner">
-                                        <input type="text" name="fieldname" value="" placeholder="" required>
+                                        <input type="text" name="entry.461884967" value="" placeholder="" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-6 col-md-6 col-sm-12">
                                     <div class="f-label">Your Email <i>*</i></div>
                                     <div class="field-inner">
-                                        <input type="email" name="email" value="" placeholder="" required>
+                                        <input type="email" name="entry.1324995250" value="" placeholder="" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-6 col-md-6 col-sm-12">
                                     <div class="f-label">Your Phone <i>*</i></div>
                                     <div class="field-inner">
-                                        <input type="text" name="phone_number" value="" placeholder="" required>
+                                        <input type="text" name="entry.1586870378" value="" placeholder="" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-6 col-md-6 col-sm-12">
-                                    <div class="f-label">Preferred Date <i>*</i></div>
+                                    <div class="f-label">Preferred Date<i>*</i></div>
                                     <div class="field-inner">
-                                        <input type="text" name="date" value="" placeholder="" required>
+                                        <input type="text" class="datepicker" name="entry.449548758" value="" placeholder="" required>
+                                        <span class="alt-icon fal fa-calendar fa-fw"></span>
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12">
                                     <div class="f-label">Destination</div>
                                     <div class="field-inner">
-                                        <textarea name="destinations" placeholder=""></textarea>
+                                        <textarea placeholder="" name="entry.1941993466"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12">
-                                    <button type="submit" name="contact-us" class="theme-btn btn-style-two"><span>Submit Now<i
+                                    <button type="submit" class="theme-btn btn-style-two"><span>Submit Now<i
                                         class="icon far fa-angle-right"></i></span></button>
                                 </div>
                             </div>
@@ -517,6 +513,76 @@
 
     </div>
     <!--End pagewrapper-->
+
+    <script>
+        document.getElementById('contact-form-main').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            let isValid = true;
+            let errorMessage = "";
+
+            // Get form fields
+            const fullName = document.querySelector("input[name='entry.461884967']");
+            const email = document.querySelector("input[name='entry.1324995250']");
+            const phone = document.querySelector("input[name='entry.1586870378']");
+            const preferredDate = document.querySelector("input[name='entry.449548758']");
+            const destination = document.querySelector("textarea[name='entry.1941993466']");
+
+            // Validation rules
+            if (fullName.value.trim() === "") {
+                isValid = false;
+                errorMessage += "Your Name is required.\n";
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email.value.trim())) {
+                isValid = false;
+                errorMessage += "Enter a valid email address.\n";
+            }
+
+            const phonePattern = /^[0-9]{10}$/;
+            if (!phonePattern.test(phone.value.trim())) {
+                isValid = false;
+                errorMessage += "Enter a valid 10-digit phone number.\n";
+            }
+
+            if (preferredDate.value.trim() === "") {
+                isValid = false;
+                errorMessage += "Preferred Date is required.\n";
+            } else {
+                // Convert date to dd/mm/yy format before submission
+                let dateParts = preferredDate.value.split("-");
+                if (dateParts.length === 3) {
+                    preferredDate.value = `${dateParts[2]}/${dateParts[1]}/${dateParts[0].slice(-2)}`;
+                }
+            }
+
+            if (destination.value.trim() === "") {
+                isValid = false;
+                errorMessage += "Destination is required.\n";
+            }
+
+            // If the form is invalid, display error messages
+            if (!isValid) {
+                alert(errorMessage);
+                return;
+            }
+
+            // Submit the form if validation passes
+            const formData = new FormData(event.target);
+            fetch('https://docs.google.com/forms/d/1Arph5GY0qvKL4MtuIpxozxkp3kLQNjXLWs63-XwdwPA/formResponse', {
+                method: "POST",
+                body: formData,
+                mode: "no-cors"
+            }).then(() => {
+                alert("Form submitted successfully!");
+                event.target.reset(); // Reset the form
+            }).catch(error => {
+                console.error("Error submitting form:", error);
+                alert("There was an error submitting the form. Please try again.");
+            });
+        });
+    </script>
 
     <!--Scroll to top-->
     <div class="scroll-to-top scroll-to-target" data-target="html"><span class="icon"><img src="images/icons/arrow-up.svg" alt="" title="Go To Top"></span></div>

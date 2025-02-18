@@ -631,3 +631,82 @@
 	
 
 })(window.jQuery);
+
+
+
+document.getElementById('contact-form-per-location').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    let isValid = true;
+    let errorMessage = "";
+
+    // Get form fields
+    const username = document.querySelector("input[name='username']");
+	const tourName = document.querySelector("input[name='tour_name']")
+    const email = document.querySelector("input[name='email']");
+    const phone = document.querySelector("input[name='phone']");
+    const date = document.querySelector("input[name='date']");
+    
+    // Validation rules
+    if (username.value.trim() === "") {
+        isValid = false;
+        errorMessage += "Full Name is required.\n";
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email.value.trim())) {
+        isValid = false;
+        errorMessage += "Enter a valid email address.\n";
+    }
+
+    const phonePattern = /^[0-9]{10}$/;
+    if (!phonePattern.test(phone.value.trim())) {
+        isValid = false;
+        errorMessage += "Enter a valid 10-digit phone number.\n";
+    }
+
+    if (date.value.trim() === "") {
+        isValid = false;
+        errorMessage += "Date is required.\n";
+    } else {
+        // Convert date to dd/mm/yy format before submission
+        let dateParts = date.value.split("-");
+        if (dateParts.length === 3) {
+            date.value = `${dateParts[2]}/${dateParts[1]}/${dateParts[0].slice(-2)}`;
+        }
+    }
+
+    // If the form is invalid, display error messages
+    if (!isValid) {
+        alert(errorMessage);
+        return;
+    }
+
+    // Add custom entry (like tour name or any additional info)
+    const formData = new FormData(event.target);
+	formData.delete('username');
+    formData.delete('email');
+    formData.delete('phone');
+    formData.delete('date');
+    formData.delete('tour_name');
+    formData.append('entry.1454830559', username.value);
+	formData.append('entry.1007881652', tourName.value);
+	formData.append('entry.1311299803', email.value);
+	formData.append('entry.1075797359', phone.value);
+	formData.append('entry.228074905', date.value);
+	
+
+
+    // Submit the form if validation passes
+    fetch('https://docs.google.com/forms/d/1ZNn7Twn_nHdWb9NWpbyw7vMu_H9G72I5xhCmQ2W-V44/formResponse', {
+        method: "POST",
+        body: formData,
+        mode: "no-cors"
+    }).then(() => {
+        alert("Form submitted successfully!");
+        event.target.reset(); // Reset the form
+    }).catch(error => {
+        console.error("Error submitting form:", error);
+        alert("There was an error submitting the form. Please try again.");
+    });
+});

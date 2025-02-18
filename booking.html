@@ -143,7 +143,7 @@
                             </div>
                         </div>
                         <!-- End Header Upper -->
-                        <div class="search-box">
+                        <!-- <div class="search-box">
                             <div class="outer-container">
                                 <div class="inner-box">
                                     <div class="form-box">
@@ -157,7 +157,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -204,12 +204,7 @@
                 </div>
                 <!-- /.Side-menu -->
 
-                <div class="links-box clearfix">
-                    <div class="clearfix">
-                        <div class="link"><a href="login.html" class="theme-btn btn-style-one"><span>Log In<i class="icon far fa-angle-right"></i></span></a></div>
-                        <div class="link"><a href="signup.html" class="theme-btn btn-style-two"><span>Sign Up<i class="icon far fa-angle-right"></i></span></a></div>
-                    </div>
-                </div>
+
 
             </div>
             <!-- / Hidden Bar Wrapper -->
@@ -244,30 +239,30 @@
                 </div>
                 <div class="form-box site-form">
                     <div class="booking-form">
-                        <form method="post" action="#">
+                        <form id="booking-form-main">
                             <div class="row clearfix">
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12">
                                     <div class="f-label">Full Name <i>*</i></div>
                                     <div class="field-inner">
-                                        <input type="text" name="fieldname" value="" placeholder="" required>
+                                        <input type="text" name="entry.1166042927" value="" placeholder="" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-6 col-md-6 col-sm-12">
                                     <div class="f-label">Your Email <i>*</i></div>
                                     <div class="field-inner">
-                                        <input type="email" name="fieldname" value="" placeholder="" required>
+                                        <input type="email" name="entry.1320750216" value="" placeholder="" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-6 col-md-6 col-sm-12">
                                     <div class="f-label">Your Phone <i>*</i></div>
                                     <div class="field-inner">
-                                        <input type="text" name="fieldname" value="" placeholder="" required>
+                                        <input type="text" name="entry.776707514" value="" placeholder="" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-6 col-md-6 col-sm-12">
                                     <div class="f-label">Destination <i>*</i></div>
                                     <div class="field-inner">
-                                        <select>
+                                        <select name="entry.428655888">
                                     <option>Select Destination</option>
                                     <option>Mcleodganj Triund</option>
                                     <option>Kasol - Kheerganga</option>
@@ -281,7 +276,7 @@
                                 <div class="form-group col-lg-6 col-md-6 col-sm-12">
                                     <div class="f-label">Package Type <i>*</i></div>
                                     <div class="field-inner">
-                                        <select>
+                                        <select name="entry.673634826">
                                     <option>Select Package Type</option>
                                     <option>Quad Sharing</option>
                                     <option>Double Sharing</option>
@@ -292,20 +287,20 @@
                                 <div class="form-group col-lg-6 col-md-6 col-sm-12">
                                     <div class="f-label">Date From <i>*</i></div>
                                     <div class="field-inner">
-                                        <input type="text" class="datepicker" name="fieldname" value="" placeholder="" required>
+                                        <input type="text" class="datepicker" name="entry.1190750650" value="" placeholder="" required>
                                         <span class="alt-icon fal fa-calendar fa-fw"></span>
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-6 col-md-6 col-sm-12">
                                     <div class="f-label">Number of Person <i>*</i></div>
                                     <div class="field-inner">
-                                        <input type="text" name="fieldname" value="" placeholder="" required>
+                                        <input type="text" name="entry.532875097" value="" placeholder="" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12">
                                     <div class="f-label">Address<i>*</i></div>
                                     <div class="field-inner">
-                                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                                        <textarea name="entry.114739576" id="" cols="30" rows="10"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-12 col-md-12 col-sm-12">
@@ -539,6 +534,98 @@
 
     </div>
     <!--End pagewrapper-->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.getElementById("booking-form-main");
+
+            form.addEventListener("submit", function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                let isValid = true;
+                let errorMessage = "";
+
+                // Get form fields
+                const fullName = document.querySelector("input[name='entry.1166042927']");
+                const email = document.querySelector("input[name='entry.1320750216']");
+                const phone = document.querySelector("input[name='entry.776707514']");
+                const destination = document.querySelector("select[name='entry.428655888']");
+                const packageType = document.querySelector("select[name='entry.673634826']");
+                const dateFrom = document.querySelector("input[name='entry.1190750650']");
+                const numberOfPerson = document.querySelector("input[name='entry.532875097']");
+                const address = document.querySelector("textarea[name='entry.114739576']");
+
+                // Validation rules
+                if (fullName.value.trim() === "") {
+                    isValid = false;
+                    errorMessage += "Full Name is required.\n";
+                }
+
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(email.value.trim())) {
+                    isValid = false;
+                    errorMessage += "Enter a valid email address.\n";
+                }
+
+                const phonePattern = /^[0-9]{10}$/;
+                if (!phonePattern.test(phone.value.trim())) {
+                    isValid = false;
+                    errorMessage += "Enter a valid 10-digit phone number.\n";
+                }
+
+                if (destination.value === "Select Destination") {
+                    isValid = false;
+                    errorMessage += "Please select a destination.\n";
+                }
+
+                if (packageType.value === "Select Package Type") {
+                    isValid = false;
+                    errorMessage += "Please select a package type.\n";
+                }
+
+                if (dateFrom.value.trim() === "") {
+                    isValid = false;
+                    errorMessage += "Please select a date.\n";
+                } else {
+                    // Convert date to dd/mm/yy format before submission
+                    let dateParts = dateFrom.value.split("-");
+                    if (dateParts.length === 3) {
+                        dateFrom.value = `${dateParts[2]}/${dateParts[1]}/${dateParts[0].slice(-2)}`;
+                    }
+                }
+
+                if (numberOfPerson.value.trim() === "" || isNaN(numberOfPerson.value) || numberOfPerson.value <= 0) {
+                    isValid = false;
+                    errorMessage += "Enter a valid number of persons.\n";
+                }
+
+                if (address.value.trim() === "") {
+                    isValid = false;
+                    errorMessage += "Address is required.\n";
+                }
+
+                if (!isValid) {
+                    alert(errorMessage);
+                    return;
+                }
+
+                // Submit to Google Forms
+                const formData = new FormData(form);
+                fetch('https://docs.google.com/forms/d/1UDU7LtTZLhl2DOFSLWILT5l1INQ5SQp-d-C1ANKYZkI/formResponse', {
+                    method: "POST",
+                    body: formData,
+                    mode: "no-cors"
+                }).then(() => {
+                    alert("Form submitted successfully!");
+                    form.reset(); // Reset the form
+                    window.location.href = "index.html";
+                }).catch(error => {
+                    console.error("Error submitting form:", error);
+                    alert("There was an error submitting the form. Please try again.");
+                });
+            });
+        });
+    </script>
 
     <!--Scroll to top-->
     <div class="scroll-to-top scroll-to-target" data-target="html"><span class="icon"><img src="images/icons/arrow-up.svg" alt="" title="Go To Top"></span></div>
