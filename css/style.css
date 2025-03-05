@@ -6534,6 +6534,10 @@ body.visible-sidebar {
     display: none;
 }
 
+.mixitup-gallery .lower-content{
+    height: 100px;
+}
+
 .mixitup-gallery .gallery-filters {
     position: relative;
     padding-bottom: 40px;
